@@ -37,13 +37,24 @@
             },
 
             change: function() {
-                // the context (`this`) is the datasource object itself
-                console.log(this.view());
+                console.info("Twitter data arrived!");
             }
         });
 
-        // initiate read from the datasource
-        dataSource.read();
+        // create a div
+        $("<div />").appendTo(document.body)
+            // initialize the kendo grid in it
+            .kendoGrid({
+                // bind to the above dataSource
+                dataSource: dataSource,
+
+                // declare the columns that are to be shown
+                columns: [
+                    { field: "from_user", title: "User" },
+                    { field: "text", title: "Tweet" }
+                ]
+
+            });
     </script>
 </body>
 </html>
