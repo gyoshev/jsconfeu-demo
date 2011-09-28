@@ -12,7 +12,38 @@
     <script src="js/kendo.all.min.js"></script>
 
     <script>
-        // enter the dojo!
+        var dataSource = new kendo.data.DataSource({
+            // describe how data will travel
+            transport: {
+                read: {
+                    // the remote service url
+                    url: "http://search.twitter.com/search.json",
+
+                    // JSONP is required for cross-domain AJAX
+                    dataType: "jsonp",
+
+                    // additional parameters sent to the remote service
+                    data: {
+                        // query Twitter for "#jsconfeu"
+                        q: "#jsconfeu"
+                    }
+                }
+            },
+
+            // describe the result format
+            schema: {
+                // the data which the data source will be bound to is in the "results" field
+                data: "results"
+            },
+
+            change: function() {
+                // the context (`this`) is the datasource object itself
+                console.log(this.view());
+            }
+        });
+
+        // initiate read from the datasource
+        dataSource.read();
     </script>
 </body>
 </html>
