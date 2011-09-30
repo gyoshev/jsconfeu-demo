@@ -11,6 +11,17 @@
     <script src="js/jquery-1.6.4.min.js"></script>
     <script src="js/kendo.all.min.js"></script>
 
+    <script id="user-template" type="text/x-kendo-template">
+        <img width="48" height="48"
+             src="<#= profile_image_url #>"
+             alt="<#= from_user #>" />
+
+        <a class="k-link"
+           href="http://twitter.com/<#= from_user #>">
+            <#= from_user #>
+        </a>
+    </script>
+
     <script>
         var dataSource = new kendo.data.DataSource({
             // describe how data will travel
@@ -37,7 +48,7 @@
             },
 
             change: function() {
-                console.info("Twitter data arrived!");
+                console.log(this.view());
             }
         });
 
@@ -50,7 +61,13 @@
 
                 // declare the columns that are to be shown
                 columns: [
-                    { field: "from_user", title: "User" },
+                    {
+                        field: "from_user",
+                        title: "User",
+
+                        // use above template
+                        template: $("#user-template").html()
+                    },
                     { field: "text", title: "Tweet" }
                 ]
 
